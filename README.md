@@ -1,2 +1,3 @@
-# Tic Tac Toe 
-Using React, NodeJs, SocketIo, Redux.
+# Tic Tac Toe
+
+Using React, React Hooks, NodeJs, SocketIo, Redux.
