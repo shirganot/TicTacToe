@@ -18,9 +18,10 @@ module.exports = {
     sourceType: 'module',
   },
   ignorePatterns: ['/node_modules/**', '/build/**'],
-  plugins: ['react', 'prettier'],
+  plugins: ['react', 'prettier', 'import'],
   rules: {
     'prettier/prettier': ['error'],
+    'no-use-before-define': ['error', { functions: false, classes: true }],
   },
   settings: {
     react: {

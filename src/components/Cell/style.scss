@@ -1,0 +1,31 @@
+@import '../../styles/variables.scss';
+
+.cell {
+  width: 8rem;
+  height: 8rem;
+  border: 2px solid $dark;
+  display: flex;
+  //for deleting extra border
+  margin-right: -2px;
+  margin-top: -2px;
+
+  img {
+    width: 5rem;
+    height: 5rem;
+    margin: auto;
+  }
+}
+
+.cell:first-of-type {
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+
+.cell:nth-of-type(2) {
+  border-top-color: transparent;
+}
+
+.cell:nth-of-type(3) {
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
