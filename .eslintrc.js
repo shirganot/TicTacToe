@@ -27,6 +27,7 @@ module.exports = {
       'error',
       { props: true, ignorePropertyModificationsForRegex: ['^draft'] },
     ],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
   },
   settings: {
     react: {

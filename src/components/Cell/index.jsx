@@ -4,17 +4,21 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import * as pActs from '../../actions/playersActions';
 import * as bActs from '../../actions/boardActions';
+import * as grActs from '../../actions/gameResultsActions';
 
 const Cell = ({ id }) => {
   const { players } = useSelector((state) => state);
   const boardArr = useSelector(({ board }) => board);
+  const { winner } = useSelector(({ gameResults }) => gameResults);
+
   const dispatch = useDispatch();
   const cellSymbol = boardArr[id];
 
-  const onClickCell = () => {
+  const onClickCell = async () => {
     if (!cellSymbol) {
-      dispatch(pActs.turnToggle());
       dispatch(bActs.updateBoard(id, players[players.turn]));
+      await dispatch(grActs.checkGameResults());
+      if (!winner) dispatch(pActs.turnToggle());
     }
   };
 
