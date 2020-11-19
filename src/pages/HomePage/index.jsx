@@ -2,7 +2,7 @@ import React from 'react';
 import './style.scss';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import * as pActs from '../../actions/playersActions';
+import * as pActs from '../../actions/playersAction';
 
 const HomePage = () => {
   const { p1 } = useSelector(({ players }) => players);

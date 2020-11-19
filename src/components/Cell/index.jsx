@@ -2,9 +2,9 @@ import React from 'react';
 import './style.scss';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import * as pActs from '../../actions/playersActions';
-import * as bActs from '../../actions/boardActions';
-import * as grActs from '../../actions/gameResultsActions';
+import * as pActs from '../../actions/playersAction';
+import * as bActs from '../../actions/boardAction';
+import * as grActs from '../../actions/gameResultsAction';
 
 const Cell = ({ id }) => {
   const { players } = useSelector((state) => state);

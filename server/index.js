@@ -1,50 +1,27 @@
-#!/usr/bin/env node
+'use strict';
+
 require('dotenv').config();
-var app = require('../server');
-var debug = require('debug')('server:server');
-var http = require('http');
+const debug = require('debug')('server:server');
+const app = require('express')();
+const server = require('http').createServer(app);
 
-/**
- * Get port from environment and store in Express.
- */
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', process.env.PROJECT_DOMAIN);
+  next();
+});
 
-/**
- * Create HTTP server.
- */
+const options = {
+  cors: {
+    origin: process.env.PROJECT_DOMAIN,
+  },
+};
 
-var server = http.createServer(app);
+require('./serverSocket')(server, options);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
+const port = process.env.SOCKET_PORT || '8000';
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-
-/**
- * Event listener for HTTP server "error" event.
- */
 
 function onError(error) {
   if (error.syscall !== 'listen') {
@@ -77,3 +54,5 @@ function onListening() {
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+// module.exports = app;
