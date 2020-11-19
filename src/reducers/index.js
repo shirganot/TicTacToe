@@ -1,12 +1,8 @@
 import { combineReducers } from 'redux';
-
-const reducer = (state = [], action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
+import boardReducer from './boardReducer';
+import playersReducer from './playersReducer';
 
 export default combineReducers({
-  reducer,
+  board: boardReducer,
+  players: playersReducer,
 });

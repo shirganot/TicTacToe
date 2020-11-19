@@ -1,13 +1,13 @@
 import React from 'react';
 import './style.scss';
 import Board from '../../components/Board';
-import CurrentPlayer from '../../components/CurrentPlayer';
+import PlayersSummery from '../../components/PlayersSummery';
 
 const GamePage = () => {
   return (
-    <div className="gamePage page">
-      <CurrentPlayer />
+    <div className="game-page page">
       <Board />
+      <PlayersSummery />
     </div>
   );
 };

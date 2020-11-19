@@ -9,6 +9,7 @@ module.exports = {
     'airbnb',
     'plugin:prettier/recommended',
     'plugin:react-hooks/recommended',
+    'eslint:recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -22,6 +23,10 @@ module.exports = {
   rules: {
     'prettier/prettier': ['error'],
     'no-use-before-define': ['error', { functions: false, classes: true }],
+    'no-param-reassign': [
+      'error',
+      { props: true, ignorePropertyModificationsForRegex: ['^draft'] },
+    ],
   },
   settings: {
     react: {

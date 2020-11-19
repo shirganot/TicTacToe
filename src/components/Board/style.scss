@@ -1,10 +1,9 @@
 .board {
   margin: 10rem auto 0 auto;
-  .row {
-    display: flex;
-  }
 
-  .row:nth-of-type(3) .cell {
-    border-bottom-color: transparent;
+  .cells-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 24rem;
   }
 }
