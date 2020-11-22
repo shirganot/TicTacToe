@@ -12,6 +12,8 @@ let playersSymbols = {
 
 let turn = 'p1';
 
+let resetCount = 0;
+
 module.exports = (app) => {
   const serverSocket = require('socket.io')(app);
 
@@ -25,7 +27,6 @@ module.exports = (app) => {
 
     //update players symbol
     client.on('put-players-symbol', ({ symbol }) => {
-      console.log('symbol in serverrr', symbol);
       if (!playersSymbols.p1) playersSymbols.p1 = symbol;
       else playersSymbols.p2 = symbol;
       serverSocket.emit('return-players-status', playersSymbols);
@@ -35,6 +36,8 @@ module.exports = (app) => {
     client.on('which-player-I-am', () => {
       let whichPlayerIAm = !activePlayers.p1 ? 'p1' : 'p2';
       activePlayers[whichPlayerIAm] = true;
+
+      if (activePlayers.p1 && activePlayers.p2) resetCount = 0;
 
       serverSocket.to(client.id).emit('return-which-player-I-am', whichPlayerIAm);
     });
@@ -47,16 +50,21 @@ module.exports = (app) => {
     });
 
     client.on('reset-all-socket-server-values', () => {
-      activePlayers = {
-        p1: false,
-        p2: false,
-      };
-      playersSymbols = {
-        p1: '',
-        p2: '',
-      };
+      if (resetCount === 0) {
+        activePlayers = {
+          p1: false,
+          p2: false,
+        };
+        playersSymbols = {
+          p1: '',
+          p2: '',
+        };
 
-      turn = 'p1';
+        turn = 'p1';
+        resetCount++;
+      }
+
+      serverSocket.emit('reset-values-success');
     });
   });
 };

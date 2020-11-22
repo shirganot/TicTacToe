@@ -1,13 +1,8 @@
 import React from 'react';
-import './App.scss';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  // Redirect
-} from 'react-router-dom';
-import GamePage from './pages/GamePage';
-import HomePage from './pages/HomePage';
+import './style.scss';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import GamePage from '../../pages/GamePage';
+import HomePage from '../../pages/HomePage';
 
 function App() {
   return (

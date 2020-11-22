@@ -1,5 +1,5 @@
-const xWinRegex = /(x...?)\1x|^(...)*xxx|^..x.x.x/;
-const oWinRegex = /(o...?)\1o|^(...)*ooo|^..o.o.o/;
+const xWinRegex = /(x...?)\1x|^(...)*xxx|^..x.x.x|^x...x...x/;
+const oWinRegex = /(o...?)\1o|^(...)*ooo|^..o.o.o|^o...o...o/;
 
 export default function checkWin(boardArr) {
   let whoWon = '';

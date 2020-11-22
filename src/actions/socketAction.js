@@ -9,7 +9,14 @@ export const connectToSocket = () => (dispatch) => {
     // for checking if connection established
     /* eslint-disable-next-line  no-console */
     console.log('connect from clientttttt');
-    dispatch({ type: types.CONNECT_TO_SOCKET });
+    return new Promise((resolve) => {
+      dispatch({ type: types.CONNECT_TO_SOCKET });
+      resolve();
+    });
+  });
+
+  clientSocket.on('reset-values-success', () => {
+    dispatch({ type: types.RESET_ALL_VALUES });
   });
 };
 

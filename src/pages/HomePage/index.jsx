@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './style.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as sActs from '../../actions/socketAction';
 import clientSocket from '../../clientSocket';
 import PickASymbol from './PickASymbol';
@@ -10,11 +10,10 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   // useSelectors
-  const { socket } = useSelector(({ socketInfo }) => socketInfo);
 
   // useEffects
-  useEffect(() => {
-    if (!socket.connected) dispatch(sActs.connectToSocket());
+  useEffect(async () => {
+    await dispatch(sActs.connectToSocket());
     dispatch(sActs.createWhichPlayerIAmListener());
     dispatch(sActs.createPlayersStatusListener());
     clientSocket.emit('get-players-status');

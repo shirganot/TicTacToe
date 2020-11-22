@@ -4,7 +4,6 @@ export const UPDATE_PLAYER_SYMBOL = 'UPDATE_PLAYER_SYMBOL';
 // Game actions
 export const DRAW_SYMBOL_ON_CELL = 'DRAW_SYMBOL_ON_CELL';
 export const UPDATE_CURR_TURN = 'UPDATE_CURR_TURN';
-
 export const GAME_RESULTS = 'GAME_RESULTS';
 
 // socket types

@@ -8,29 +8,24 @@ import * as sActs from '../../actions/socketAction';
 import WhoIsPlayingMsg from '../../components/WhoIsPlayingMsg';
 import EndGamePopup from '../../components/EndGamePopup';
 import clientSocket from '../../clientSocket';
-import * as types from '../../helpers/actionTypes';
 
 const GamePage = () => {
   // hooks
   const dispatch = useDispatch();
-  const { connected } = useSelector(({ socketInfo }) => socketInfo);
+  const { connected, socket } = useSelector(({ socketInfo }) => socketInfo);
   const history = useHistory();
 
   // useEffects
   useEffect(() => {
-    // check if initialization of socket happened
-    if (!connected) {
-      dispatch({ type: types.RESET_ALL_VALUES });
+    dispatch(sActs.createCellChangeListener());
+  }, []);
+
+  useEffect(() => {
+    if (!socket.connected && !connected) {
       clientSocket.emit('reset-all-socket-server-values');
       history.push('/');
-    } else dispatch(sActs.createCellChangeListener());
-
-    return () => {
-      clientSocket.off('return-players-status');
-      clientSocket.off('return-which-player-I-am');
-      clientSocket.off('return-cell-changed');
-    };
-  }, []);
+    }
+  }, [connected]);
 
   return (
     <div className="game-page page">
