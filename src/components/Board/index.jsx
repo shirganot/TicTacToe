@@ -5,15 +5,14 @@ import uuid from 'react-uuid';
 import Cell from '../Cell';
 
 const Board = () => {
+  // useSelectors
   const boardArr = useSelector(({ board }) => board);
 
   return (
     <div className="board">
-      <div className="cells-container">
-        {boardArr.map((cell, index) => (
-          <Cell key={uuid()} id={index} />
-        ))}
-      </div>
+      {boardArr.map((cellSymbol, index) => (
+        <Cell key={uuid()} cellId={index} />
+      ))}
     </div>
   );
 };

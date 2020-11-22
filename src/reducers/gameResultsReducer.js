@@ -12,6 +12,9 @@ export default function playersReducer(state = initialState, { type, payload }) 
         draft.winner = payload.whoWon;
       });
 
+    case types.RESET_ALL_VALUES:
+      return initialState;
+
     default:
       return state;
   }

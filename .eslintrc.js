@@ -23,12 +23,17 @@ module.exports = {
   rules: {
     'prettier/prettier': ['error'],
     'no-use-before-define': ['error', { functions: false, classes: true }],
-    'no-param-reassign': [
-      'error',
-      { props: true, ignorePropertyModificationsForRegex: ['^draft'] },
-    ],
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['draft'] }],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
   },
+  overrides: [
+    {
+      files: ['src/actions/*.js'],
+      rules: {
+        'import/prefer-default-export': 0,
+      },
+    },
+  ],
   settings: {
     react: {
       version: 'detect',

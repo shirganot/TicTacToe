@@ -1,36 +1,35 @@
 import React from 'react';
 import './style.scss';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import * as pActs from '../../actions/playersAction';
-import * as bActs from '../../actions/boardAction';
-import * as grActs from '../../actions/gameResultsAction';
+import { useSelector } from 'react-redux';
+import clientSocket from '../../clientSocket';
 
-const Cell = ({ id }) => {
-  const { players } = useSelector((state) => state);
+const Cell = ({ cellId }) => {
+  // useSelectors
   const boardArr = useSelector(({ board }) => board);
-  const { winner } = useSelector(({ gameResults }) => gameResults);
+  const { turn, p2 } = useSelector(({ players }) => players);
+  const { whichPlayerIAm } = useSelector(({ socketInfo }) => socketInfo);
 
-  const dispatch = useDispatch();
-  const cellSymbol = boardArr[id];
+  // variables
+  const cellSymbol = boardArr[cellId];
 
-  const onClickCell = async () => {
-    if (!cellSymbol) {
-      dispatch(bActs.updateBoard(id, players[players.turn]));
-      await dispatch(grActs.checkGameResults());
-      if (!winner) dispatch(pActs.turnToggle());
-    }
-  };
+  // funcs
+  const onClickCell = async () => clientSocket.emit('cell-changed', { cellId });
 
   return (
-    <button type="button" className="cell" onClick={onClickCell} disabled={Boolean(cellSymbol)}>
+    <button
+      type="button"
+      className={`cell ${(whichPlayerIAm !== turn || !p2) && 'not-active'}`}
+      onClick={onClickCell}
+      disabled={Boolean(cellSymbol) || whichPlayerIAm !== turn || !p2}
+    >
       {cellSymbol && <img src={`./imgs/${cellSymbol}.svg`} alt={cellSymbol} />}
     </button>
   );
 };
 
 Cell.propTypes = {
-  id: PropTypes.number.isRequired,
+  cellId: PropTypes.number.isRequired,
 };
 
 export default Cell;

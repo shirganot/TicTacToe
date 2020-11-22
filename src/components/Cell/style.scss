@@ -1,9 +1,7 @@
-@import '../../styles/variables.scss';
-
 .cell {
   width: 8rem;
   height: 8rem;
-  border: 2px solid $dark;
+  border: 2px solid #222831;
   display: flex;
   background-color: white;
   //for deleting extra border
@@ -19,9 +17,13 @@
 }
 
 .cell:hover:not([disabled]) {
-  background-color: $light;
+  background-color: #e8e8e8;
 }
 
 .cell:disabled {
   cursor: not-allowed;
+}
+
+.cell.not-active {
+  background-color: rgba(#3a505a, 0.5);
 }

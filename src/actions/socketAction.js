@@ -1,14 +1,37 @@
 import * as types from '../helpers/actionTypes';
 import clientSocket from '../clientSocket';
+import * as pActs from './playersAction';
+import * as bActs from './boardAction';
+import * as grActs from './gameResultsAction';
 
-// only because the work didnt complete.
-/* eslint-disable-next-line import/prefer-default-export */
-export const connectToSocket = () => {
+export const connectToSocket = () => (dispatch) => {
   clientSocket.on('connect', () => {
+    // for checking if connection established
+    /* eslint-disable-next-line  no-console */
     console.log('connect from clientttttt');
+    dispatch({ type: types.CONNECT_TO_SOCKET });
   });
+};
 
-  return {
-    type: types.CONNECT_TO_SOCKET,
-  };
+export const createPlayersStatusListener = () => (dispatch) => {
+  clientSocket.on('return-players-status', (playersStatus) => {
+    dispatch(pActs.updatePlayersStatus(playersStatus));
+  });
+};
+
+export const createWhichPlayerIAmListener = () => (dispatch) => {
+  clientSocket.on('return-which-player-I-am', (whichPlayerIAm) => {
+    dispatch({
+      type: types.DETERMINE_WHICH_PLAYER_I_AM,
+      payload: { whichPlayerIAm },
+    });
+  });
+};
+
+export const createCellChangeListener = () => (dispatch, getState) => {
+  clientSocket.on('return-cell-changed', async ({ cellId, symbol, turn }) => {
+    dispatch(bActs.updateBoard(cellId, symbol));
+    await dispatch(grActs.checkGameResults());
+    if (!getState().gameResults.winner) dispatch(pActs.updateCurrTurn(turn));
+  });
 };

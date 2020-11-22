@@ -11,6 +11,10 @@ export default function boardReducer(state = initialState, { type, payload }) {
         draft[cellId] = symbol;
       });
     }
+
+    case types.RESET_ALL_VALUES:
+      return initialState;
+
     default:
       return state;
   }

@@ -1,13 +1,15 @@
 import * as types from '../helpers/actionTypes';
 
-export const pickASymbol = (symbol, player) => ({
-  type: types.PICK_A_SYMBOL,
-  payload: {
-    symbol,
-    player,
-  },
-});
+export const updatePlayersStatus = (playersStatus) => {
+  return {
+    type: types.UPDATE_PLAYER_SYMBOL,
+    payload: {
+      players: playersStatus,
+    },
+  };
+};
 
-export const turnToggle = () => ({
-  type: types.TOGGLE_TURN,
+export const updateCurrTurn = (turn) => ({
+  type: types.UPDATE_CURR_TURN,
+  payload: { turn },
 });

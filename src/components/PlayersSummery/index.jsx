@@ -3,21 +3,22 @@ import './style.scss';
 import { useSelector } from 'react-redux';
 
 const PlayersSummery = () => {
-  const { p1, p2, turn } = useSelector(({ players }) => players);
+  // useSelectors
+  const playersInfo = useSelector(({ players }) => players);
+  const { whichPlayerIAm } = useSelector(({ socketInfo }) => socketInfo);
 
   return (
     <div className="players-summery">
       <p>
-        current Player:
-        <span>{turn}</span>
+        Your symbol:
+        <span>{whichPlayerIAm ? playersInfo[whichPlayerIAm].toUpperCase() : ''}</span>
       </p>
+
       <p>
-        player1:
-        <span>{p1.toUpperCase()}</span>
-      </p>
-      <p>
-        player2:
-        <span>{p2.toUpperCase()}</span>
+        The other player symbol:
+        <span>
+          {whichPlayerIAm ? playersInfo[whichPlayerIAm === 'p1' ? 'p2' : 'p1'].toUpperCase() : ''}
+        </span>
       </p>
     </div>
   );

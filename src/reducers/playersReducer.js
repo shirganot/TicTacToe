@@ -2,22 +2,29 @@ import produce from 'immer';
 import * as types from '../helpers/actionTypes';
 
 const initialState = {
-  p1: 'x',
-  p2: 'o',
+  p1: '',
+  p2: '',
   turn: 'p1',
 };
 
 export default function playersReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case types.PICK_A_SYMBOL:
+    case types.UPDATE_PLAYER_SYMBOL: {
+      const { p1, p2 } = payload.players;
       return produce(state, (draft) => {
-        draft[payload.player] = payload.symbol;
+        draft.p1 = p1;
+        draft.p2 = p2;
+      });
+    }
+
+    case types.UPDATE_CURR_TURN:
+      return produce(state, (draft) => {
+        draft.turn = payload.turn;
       });
 
-    case types.TOGGLE_TURN:
-      return produce(state, (draft) => {
-        draft.turn = draft.turn === 'p1' ? 'p2' : 'p1';
-      });
+    case types.RESET_ALL_VALUES:
+      return initialState;
+
     default:
       return state;
   }

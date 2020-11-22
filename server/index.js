@@ -5,15 +5,8 @@ const debug = require('debug')('server:server');
 const app = require('express')();
 const server = require('http').createServer(app);
 
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', process.env.PROJECT_DOMAIN);
-  next();
-});
-
 const options = {
-  cors: {
-    origin: process.env.PROJECT_DOMAIN,
-  },
+  cors: { origin: process.env.PROJECT_DOMAIN },
 };
 
 require('./serverSocket')(server, options);
@@ -48,11 +41,8 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
-// module.exports = app;
