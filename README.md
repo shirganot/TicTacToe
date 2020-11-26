@@ -8,7 +8,7 @@ There is an option to restart the game at the end.
 
 In 2 terminals-
 
-- `npm start`
+- `npm install && npm start`
 - `npm run server`
 
 ## Redux
